@@ -6,4 +6,21 @@ jobs:
       image: ubuntu-1604:201903-01
       docker_layer_caching: true
     steps:
-      - run : "echo 'Hello world'"
+      - checkout
+      - run:
+          name: "circleci-install"
+          command: |
+            #!/bin/bash
+            export VERBOSE=false
+            export CIRCLECI_USER=${CIRCLECI_USER:-circleci}
+
+            set -ex
+
+            cp circleci-install /usr/local/bin/circleci-install
+            cp -r circleci-provision-scripts /opt/circleci-provision-scripts
+            circleci-install base_requirements && circleci-install circleci_specific
+      - run:
+          name: "Install docker & docker compose"
+          command: |
+            circleci-install docker
+            circleci-install docker_compose 1.23.1
