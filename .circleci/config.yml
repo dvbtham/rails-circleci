@@ -32,4 +32,7 @@ jobs:
             sudo chmod +x /usr/local/bin/docker-compose
       - run: "sudo chown $(whoami) /var/run/docker.sock"
       - run: "docker-compose build"
-      - run: "docker-compose run -e "RAILS_ENV=test" web rake test"
+      - run:
+          name: "Run unit test"
+          command: |
+            docker-compose run -e "RAILS_ENV=test" web rake test
