@@ -8,8 +8,8 @@ jobs:
     steps:
       - checkout
       - run:
-        name: "Run init the database"
-        command: |
+          name: "Run init the database"
+          command: |
           docker-compose run -e "RAILS_ENV=test" web rake db:create db:migrate
       - run:
           name: "Run unit test"
