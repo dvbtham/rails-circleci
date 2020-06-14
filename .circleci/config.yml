@@ -20,3 +20,4 @@ jobs:
           command: |
             docker-compose run -e "RAILS_ENV=test" web rake test
             ssh $SSH_USER@$SSH_IP "cd rails-circleci && ls -a"
+            exit
