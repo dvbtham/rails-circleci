@@ -7,7 +7,10 @@ jobs:
       docker_layer_caching: true
     steps:
       - checkout
+      - run: "sh check_docker.sh"
+      - run: "sh check_docker_compose.sh"
       - run: "sudo chown $(whoami) /var/run/docker.sock"
+      - run: "docker-compose build"
       - run:
           name: "Run init the database"
           command: |
